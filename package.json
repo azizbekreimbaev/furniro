@@ -12,9 +12,18 @@
   "author": "KEVIN",
   "license": "ISC",
   "devDependencies": {
+    "@types/ejs": "^3.1.5",
     "moment": "^2.30.1",
     "ts-node": "^10.9.2",
     "tsconfig-paths": "^4.2.0",
+    "@types/express": "^5.0.6",
     "typescript": "^5.7.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "mongodb": "^7.5.0",
+    "mongoose": "^9.9.1"
   }
 }
