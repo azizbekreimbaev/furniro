@@ -1,5 +1,8 @@
 import express from 'express'
 import path from 'path'
+import router from './router'
+import routerAdmin from './router-admin'
+
 const app = express()
 
 // KIRISH CODE
@@ -16,7 +19,8 @@ app.set('views', path.join(__dirname, "views"));
 app.set('view engine', 'ejs');
 
 
-// APIs routers
-
+// Routers
+app.use("/admin", routerAdmin)
+app.use("/", router)
 
 export default app;
