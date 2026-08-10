@@ -10,10 +10,10 @@ export interface Member {
     memberNick: string,
     memberPhone: string,
     memberPassword: string,
-    memberImage: string,
+    memberImage?: string,
     memberPoints: number,
-    memberAddress: string,
-    memberdesc: string,
+    memberAddress?: string,
+    memberDesc?: string,
     createdAt: Date,
     updatedAt: Date,
 }
@@ -27,7 +27,7 @@ export interface MemberInput {
     memberImage?: string,
     memberPoints?: number,
     memberAddress?: string,
-    memberdesc?: string,
+    memberDesc?: string,
 }
 
 export interface MemberUpdateInput {
@@ -40,7 +40,7 @@ export interface MemberUpdateInput {
     memberImage?: string,
     memberPoints?: number,
     memberAddress?: string,
-    memberdesc?: string,
+    memberDesc?: string,
 }
 
 export interface LoginInput {
