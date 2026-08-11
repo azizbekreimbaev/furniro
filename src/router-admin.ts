@@ -20,5 +20,18 @@ routerAdmin
 routerAdmin.get("/logout", adminController.logout)
 routerAdmin.get("/check-me", adminController.checkAuth)
 
+/**PRODUCTS */
+
+
+routerAdmin.get("/product/getall", adminController.getAllProducts)
+routerAdmin.post("/product/create", adminController.createProduct)
+routerAdmin.post("/product/update", adminController.updateProduct)
+
+
+
+
+
+/**USERS */
+
 
 export default routerAdmin
