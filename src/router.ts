@@ -1,14 +1,10 @@
 import express from 'express'
-import { Request, Response } from 'express'
+import memberController from './controller/member.controller';
 
 const router = express.Router();
 
-router.get("/", (req: Request, res: Response) => {
-    res.send("HOME PAGE")
-})
+router.post("/signup", memberController.signup)
 
-router.get("/login", (req: Request, res: Response) => {
-    res.send("LJKAHDKHGHLOGIN PAGE")
-})
+router.post("/login", memberController.login)
 
 export default router
