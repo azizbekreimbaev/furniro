@@ -48,9 +48,16 @@ adminController.processSignup = async (req: AdminRequest, res: Response) => {
 
         const result = await memberSrvice.processSignup(newMember)
 
-
         // SESSION
-        res.send("Created Successfully")
+        req.session.member = result
+        req.session.save((err) => {
+            if (err) {
+                console.log(err)
+                return res.send("Error on saving to db")
+            } else {
+                res.send("Created Successfully")
+            }
+        })
 
 
     } catch (err) {
@@ -84,7 +91,13 @@ adminController.processLogin = async (req: AdminRequest, res: Response) => {
 
         const result = await memberSrvice.processLogin(input)
 
-        res.send("Existing member")
+
+        // SESSION
+        req.session.member = result
+        req.session.save(function () {
+            res.send("Created Successfully")
+        })
+
 
     } catch (err) {
         console.log("ERROR, processLogin", err)
@@ -92,6 +105,35 @@ adminController.processLogin = async (req: AdminRequest, res: Response) => {
         res.send(`<script> alert("${message}"); window.location.replace('/admin/login')</script>`);
     }
 
+}
+
+
+adminController.logout = async (req: AdminRequest, res: Response) => {
+    try {
+
+        console.log("logout")
+
+        req.session.destroy(function () {
+            res.send("LOGGED out")
+            //res.redirect("/admin")
+        })
+
+    } catch (err) {
+        console.log("ERROR, processLogin", err)
+        res.redirect("/admin")
+    }
+}
+
+adminController.checkAuth = async (req: AdminRequest, res: Response) => {
+    try {
+
+        if (req.session?.member) res.send(`<script> alert(HI ${req.session.member.memberNick}) </script>`)
+
+        else res.send(`<script> alert("${Message.NOT_AUTHENTICATED}")</script>`);
+    } catch (err) {
+        console.log(err)
+        res.redirect("/admin")
+    }
 }
 
 

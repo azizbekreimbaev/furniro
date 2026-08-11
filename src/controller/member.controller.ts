@@ -30,7 +30,7 @@ memberController.login = async (req: Extendedrequest, res: Response) => {
         const input: LoginInput = req.body
 
         const result = await memberService.login(input)
-        res.status(HttpCode.OK).json({result: result})
+        res.status(HttpCode.OK).json({ result: result })
     } catch (err) {
         console.log("ERROR, login", err)
         const message = err instanceof Errors ? err.message : Message.SOMETHING_WENT_WRONG
