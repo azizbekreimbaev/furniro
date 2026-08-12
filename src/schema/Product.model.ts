@@ -1,9 +1,10 @@
 import mongoose, { Schema } from "mongoose";
 import { ProductCategory, ProductColor, ProductMaterial, ProductStatus } from "../libs/enums/product.enum";
+import { Product } from "../libs/types/product";
 
 
 
-const ProductSchema = new Schema({
+const ProductSchema = new Schema<Product>({
     productStatus: {
         type: String,
         enum: ProductStatus,
@@ -44,7 +45,7 @@ const ProductSchema = new Schema({
         default: 0
     },
 
-    ProductMaterial: {
+    productMaterial: {
         type: String,
         enum: ProductMaterial
     },
@@ -65,4 +66,4 @@ const ProductSchema = new Schema({
 )
 
 
-export default mongoose.model("Product", ProductSchema)
+export default mongoose.model<Product>("Product", ProductSchema)

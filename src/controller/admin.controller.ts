@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import { T } from '../libs/types/common';
 import { AdminRequest, LoginInput, MemberInput } from '../libs/types/member';
 import MemberService from '../models/Member.service';
@@ -95,7 +95,7 @@ adminController.processLogin = async (req: AdminRequest, res: Response) => {
         // SESSION
         req.session.member = result
         req.session.save(function () {
-            res.send("Created Successfully")
+            res.send("Logged in Successfully")
         })
 
 
@@ -121,6 +121,19 @@ adminController.logout = async (req: AdminRequest, res: Response) => {
     } catch (err) {
         console.log("ERROR, processLogin", err)
         res.redirect("/admin")
+    }
+}
+
+
+
+adminController.verifyAdmin = async (req: AdminRequest, res: Response, next: NextFunction) => {
+
+    if (req.session?.member?.memberType === MemberType.ADMIN) {
+        req.member = req.session.member;
+        next();
+    } else {
+        const message = Message.NOT_AUTHENTICATED
+        res.send(`<script> alert("${message}"); window.location.replace('/admin/login'); </script>`);
     }
 }
 

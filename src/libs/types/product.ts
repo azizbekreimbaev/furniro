@@ -10,7 +10,7 @@ export interface Product {
     productImages: string[]
     productDesc: string
     productColor: ProductColor
-    productViews: number
+    productViews?: number
     productMaterial: ProductMaterial
     productCategory: ProductCategory
     productBrand: string
@@ -38,12 +38,12 @@ export interface ProductInput {
     productName: string
     productPrice: number
     productLeftCount: number
-    productImages: string[]
+    productImages?: string[]
     productDesc?: string
-    productColor: ProductColor
+    productColor?: ProductColor
     productViews?: number
-    productMaterial: ProductMaterial
-    productCategory: ProductCategory
+    productMaterial?: ProductMaterial
+    productCategory?: ProductCategory
     productBrand?: string
 }
 
