@@ -3,70 +3,369 @@
   <link rel="stylesheet" type="text/css" href="/css/signup.css" />
 
   <body>
+
     <div class="signup-container">
-      <form onsubmit="return validateSignupForm()" action="/admin/signup" method="POST" enctype="multipart/form-data">
-        <div class="signup-frame" style="width: 650px">
-          <div class="signup-top">
-            <span>Signup</span>
-            <div>Go back <a href="/admin" style="color: #6440fb">Home</a></div>
+
+      <!-- ===============================
+         LEFT FURNITURE SHOWCASE
+    ================================ -->
+
+      <div class="signup-showcase">
+
+        <div class="showcase-circle"></div>
+        <div class="showcase-circle-small"></div>
+
+        <div class="showcase-content">
+
+          <a href="/admin" class="showcase-brand">
+            <span class="brand-box">F</span>
+            <span>Furni</span>
+          </a>
+
+          <div class="showcase-text">
+
+            <span class="showcase-small-title">
+              JOIN OUR SPACE
+            </span>
+
+            <h1>
+              Create your
+              <span>furniture store.</span>
+            </h1>
+
             <p>
-              Already signed up?
-              <a href="/admin/login" style="color: #6440fb">Login</a>
+              Register your account and start managing furniture,
+              products and customers from one elegant workspace.
             </p>
+
           </div>
 
-          <div class="sign-input-frame" style="justify-content: space-between">
-            <div class="sign-up-frame">
-              <label>Restaurant *</label>
-              <input type="text" name="memberNick" class="member-nick" placeholder="Username" value="" />
-            </div>
-            <div class="sign-up-frame">
-              <label>Phone *</label>
-              <input type="text" name="memberPhone" class="member-phone" placeholder="Phone" value="" />
-            </div>
-          </div>
-          <div class="sign-input-frame" style="justify-content: space-between">
-            <div class="sign-up-frame">
-              <label>Password *</label>
-              <input type="password" name="memberPassword" class="member-password" placeholder="Password" value="" />
-            </div>
-            <div class="sign-up-frame">
-              <label>Repeat password *</label>
-              <input type="password" name="confirmPassword" class="confirm-password" placeholder="Repeat password"
-                value="" />
-            </div>
-          </div>
-
-          <div class="signup-input-frame">
-            <div class="media-frame">
-              <img class="upload-img-frame" src="/img/default.jpeg" />
-              <div class="upload-container">
-                <span class="media-text">Product image</span>
-                <div class="file-box bs3-primary preview-image" style="margin-top: 25px; display: flex">
-                  <input class="upload-name" value="Choose image" disabled="disabled" />
-                  <label for="input-file" class="file-input-label">Upload Image</label>
-                  <input type="file" id="input-file" class="upload-hidden form-control-file member-image"
-                    name="memberImage" />
-                </div>
-                <p class="thumbnail-desc">
-                  Please upload restaurant image.<br />
-                  Attention only:.jpg, .jpeg, or .png. <br />
-                  formats allowed!
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <input name="memberType" value="RESTAURANT" hidden />
-
-          <button class="signup-btn btn" name="signup" type="submit">
-            Signup
-          </button>
         </div>
-      </form>
+
+
+        <!-- MINI FURNITURE SCENE -->
+
+        <div class="mini-room">
+
+          <!-- Background arch -->
+          <div class="room-arch"></div>
+
+          <!-- Lamp -->
+          <div class="mini-lamp">
+
+            <div class="mini-lamp-glow"></div>
+            <div class="mini-lamp-shade"></div>
+            <div class="mini-lamp-pole"></div>
+            <div class="mini-lamp-base"></div>
+
+          </div>
+
+
+          <!-- Sofa -->
+          <div class="mini-sofa">
+
+            <div class="mini-sofa-back"></div>
+            <div class="mini-sofa-seat"></div>
+
+            <div class="mini-sofa-arm mini-arm-left"></div>
+            <div class="mini-sofa-arm mini-arm-right"></div>
+
+            <div class="mini-pillow mini-pillow-one"></div>
+            <div class="mini-pillow mini-pillow-two"></div>
+
+            <div class="mini-sofa-leg mini-leg-left"></div>
+            <div class="mini-sofa-leg mini-leg-right"></div>
+
+          </div>
+
+
+          <!-- Side Table -->
+          <div class="mini-table">
+
+            <div class="mini-table-top"></div>
+
+            <div class="mini-table-leg mini-table-leg-left"></div>
+            <div class="mini-table-leg mini-table-leg-right"></div>
+
+            <div class="mini-vase"></div>
+
+          </div>
+
+
+          <!-- Plant -->
+          <div class="mini-plant">
+
+            <span class="mini-leaf mini-leaf-1"></span>
+            <span class="mini-leaf mini-leaf-2"></span>
+            <span class="mini-leaf mini-leaf-3"></span>
+            <span class="mini-leaf mini-leaf-4"></span>
+
+            <div class="mini-pot"></div>
+
+          </div>
+
+          <div class="mini-floor"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- ===============================
+         RIGHT SIGNUP FORM
+    ================================ -->
+
+      <div class="signup-form-side">
+
+        <form onsubmit="return validateSignupForm()" action="/admin/signup" method="POST" enctype="multipart/form-data">
+
+          <div class="signup-frame">
+
+            <!-- mobile logo -->
+            <div class="mobile-brand">
+              <span class="brand-box">F</span>
+              <span>Furni</span>
+            </div>
+
+
+            <!-- TITLE -->
+
+            <div class="signup-top">
+
+              <span class="signup-small-title">
+                CREATE ACCOUNT
+              </span>
+
+              <h2>Signup</h2>
+
+              <div class="home-link">
+                Go back
+                <a href="/admin">Home</a>
+              </div>
+
+              <p>
+                Already signed up?
+                <a href="/admin/login">Login</a>
+              </p>
+
+            </div>
+
+
+            <!-- ===============================
+               FIRST ROW
+          ================================ -->
+
+            <div class="sign-input-frame">
+
+              <div class="sign-up-frame">
+
+                <label>Restaurant *</label>
+
+                <div class="input-wrapper">
+
+                  <span class="input-icon">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M20 21a8 8 0 0 0-16 0"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+
+                  </span>
+
+                  <input type="text" name="memberNick" class="member-nick" placeholder="Username" value="" />
+
+                </div>
+
+              </div>
+
+
+              <div class="sign-up-frame">
+
+                <label>Phone *</label>
+
+                <div class="input-wrapper">
+
+                  <span class="input-icon">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <path d="M22 16.92v3a2 2 0 0 1-2.18 2
+                      19.79 19.79 0 0 1-8.63-3.07
+                      19.5 19.5 0 0 1-6-6
+                      19.79 19.79 0 0 1-3.07-8.67
+                      A2 2 0 0 1 3.89 2h3
+                      a2 2 0 0 1 2 1.72
+                      c.12.9.33 1.78.62 2.63
+                      a2 2 0 0 1-.45 2.11
+                      L7.79 9.73
+                      a16 16 0 0 0 6 6
+                      l1.27-1.27
+                      a2 2 0 0 1 2.11-.45
+                      c.85.29 1.73.5 2.63.62
+                      A2 2 0 0 1 22 16.92z"></path>
+                    </svg>
+
+                  </span>
+
+                  <input type="text" name="memberPhone" class="member-phone" placeholder="Phone" value="" />
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- ===============================
+               PASSWORD ROW
+          ================================ -->
+
+            <div class="sign-input-frame">
+
+              <div class="sign-up-frame">
+
+                <label>Password *</label>
+
+                <div class="input-wrapper">
+
+                  <span class="input-icon">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="4" y="10" width="16" height="11" rx="2"></rect>
+
+                      <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+
+                    </svg>
+
+                  </span>
+
+                  <input type="password" name="memberPassword" class="member-password" placeholder="Password"
+                    value="" />
+
+                </div>
+
+              </div>
+
+
+              <div class="sign-up-frame">
+
+                <label>Repeat password *</label>
+
+                <div class="input-wrapper">
+
+                  <span class="input-icon">
+
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                      <rect x="4" y="10" width="16" height="11" rx="2"></rect>
+
+                      <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+
+                    </svg>
+
+                  </span>
+
+                  <input type="password" name="confirmPassword" class="confirm-password" placeholder="Repeat password"
+                    value="" />
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- ===============================
+               IMAGE UPLOAD
+          ================================ -->
+
+            <div class="signup-input-frame">
+
+              <div class="media-frame">
+
+                <div class="image-preview-container">
+
+                  <img class="upload-img-frame" src="/img/default.jpeg" alt="Restaurant preview" />
+
+                  <div class="preview-overlay">
+                    <span>Preview</span>
+                  </div>
+
+                </div>
+
+
+                <div class="upload-container">
+
+                  <span class="media-text">
+                    Restaurant image
+                  </span>
+
+                  <p class="upload-subtitle">
+                    Add an image representing your restaurant.
+                  </p>
+
+
+                  <div class="file-box bs3-primary preview-image">
+
+                    <input class="upload-name" value="Choose image" disabled="disabled" />
+
+                    <label for="input-file" class="file-input-label">
+                      Upload Image
+                    </label>
+
+                    <input type="file" id="input-file" class="upload-hidden form-control-file member-image"
+                      name="memberImage" />
+
+                  </div>
+
+
+                  <p class="thumbnail-desc">
+                    JPG, JPEG and PNG formats are supported.
+                    Please select a clear restaurant image.
+                  </p>
+
+                </div>
+
+              </div>
+
+            </div>
+
+
+            <!-- EXISTING MEMBER TYPE -->
+
+            <input name="memberType" value="RESTAURANT" hidden />
+
+
+            <!-- SUBMIT -->
+
+            <button class="signup-btn btn" name="signup" type="submit">
+
+              <span>Create Account</span>
+
+              <span class="button-arrow">→</span>
+
+            </button>
+
+
+            <div class="signup-bottom">
+
+              <span></span>
+
+              Secure registration
+
+              <span></span>
+
+            </div>
+
+          </div>
+
+        </form>
+
+      </div>
+
     </div>
 
+
     <script type="text/javascript" src="/js/signup.js"></script>
+
   </body>
 
   <%- include('includes/footer') %>

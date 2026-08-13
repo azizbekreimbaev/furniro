@@ -55,7 +55,7 @@ adminController.processSignup = async (req: AdminRequest, res: Response) => {
                 console.log(err)
                 return res.send("Error on saving to db")
             } else {
-                res.render("home")
+                res.redirect("/admin/product/getall")
             }
         })
 

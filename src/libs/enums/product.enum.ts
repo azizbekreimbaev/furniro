@@ -5,7 +5,7 @@ export enum ProductStatus {
 }
 
 export enum ProductColor {
-    LACK = "LACK",
+    BLACK = "BLACK",
     WHITE = "WHITE",
     GRAY = "GRAY",
     BROWN = "BROWN",

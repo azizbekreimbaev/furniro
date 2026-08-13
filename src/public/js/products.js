@@ -9,24 +9,24 @@ console.log("Signup frontend javascript file");
 
 
 $(function () {
-    $(".product-collection").on("change", () => {
-        const selectedValue = $(".product-collection").val();
-        if (selectedValue === 'DRINK') {
 
-            $("#product-collection").hide();
-            $("#product-volume").show();
 
-        } else {
-            $("#product-volume").hide();
-            $("#product-collection").show();
+    $("#process-btn").on("click", function () {
 
-        }
-    })
+        $(".dish-container").slideDown(100, function () {
 
-    $("#process-btn").on("click", () => {
-        $(".dish-container").slideToggle(500);
-        $("#process-btn").css("display", "none")
-    })
+            $("html, body").animate(
+                {
+                    scrollTop: $(".dish-container").offset().top - 30
+                },
+                600
+            );
+
+        });
+
+        $("#process-btn").hide();
+
+    });
 
     $("#cancel-btn").on("click", () => {
         $(".dish-container").slideToggle(100);
@@ -44,18 +44,29 @@ $(function () {
 
         try {
 
-            const response = await axios.post(`/admin/product/${id}`, { productStatus: productStatus });
+
+            const response = await axios.post(
+                `/admin/product/update/${id}`,
+                {
+                    productStatus: productStatus
+                }
+            );
             const result = response.data
 
-            if (result.data) {
-                console.log('====================================');
-                console.log("Product updated");
-                console.log('====================================');
-                $('.new-product-status').blur()
-            } else alert("Update failed")
+            console.log('====================================');
+            console.log("Product updated");
+            console.log('====================================');
+            $('.new-product-status').blur()
 
         } catch (err) {
-            alert("Product update failed")
+            console.error("Product update failed:", err);
+            console.error("Backend response:", err.response?.data);
+            console.error("HTTP status:", err.response?.status);
+
+            alert(
+                err.response?.data?.message ||
+                "Product update failed"
+            );
         }
 
     })
@@ -67,20 +78,62 @@ $(function () {
 
 
 function validateForm() {
-    const productName = $(".product-name").val();
-    const productPrice = $(".product-price").val();
-    const productLeftCount = $(".product-left-count").val();
-    const productCollection = $(".product-collection").val();
-    const productDesc = $(".product-desc").val();
-    const productStatus = $(".product-status").val();
 
-    if (productName === '' || productPrice === '' || productLeftCount === '' || productCollection === '' || productDesc === '' || productStatus === '') {
-        alert("Please fill out all required inputs")
+    const productName =
+        $(".product-name").val()?.trim();
+
+    const productPrice =
+        $(".product-price").val();
+
+    const productLeftCount =
+        $(".product-left-count").val();
+
+    const productDesc =
+        $(".product-desc").val()?.trim();
+
+    const productStatus =
+        $(".product-status").val();
+
+
+    if (
+        !productName ||
+        productPrice === "" ||
+        productLeftCount === "" ||
+        !productStatus
+    ) {
+
+        alert(
+            "Please fill out all required inputs"
+        );
+
         return false;
-    } else return true
+
+    }
 
 
+    if (Number(productPrice) < 0) {
 
+        alert(
+            "Product price cannot be negative"
+        );
+
+        return false;
+
+    }
+
+
+    if (Number(productLeftCount) < 0) {
+
+        alert(
+            "Product count cannot be negative"
+        );
+
+        return false;
+
+    }
+
+
+    return true;
 }
 
 

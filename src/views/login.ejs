@@ -1,45 +1,187 @@
 <%- include('includes/header') %>
 
-<link rel="stylesheet" type="text/css" href="/css/login.css" />
+  <link rel="stylesheet" type="text/css" href="/css/login.css" />
 
-<body>
-  <form class="login-container" action="/admin/login" METHOD="POST">
-    <div class="login-frame">
-      <div class="login-top">
-        <span>Enter</span>
-        <div>Go back <a href="/admin" style="color: #6440fb">Home</a></div>
-        <p>
-          Not registered yet?
-          <a href="/admin/signup" style="color: #6440fb">Signup</a>
-        </p>
-      </div>
-      <div class="login-input-frame">
-        <div class="login-input-container">
-          <label>Restaurant *</label>
-          <input
-            type="text"
-            name="memberNick"
-            class="member-nick"
-            placeholder="Username"
-            value=""
-            required
-          />
-        </div>
-        <div class="login-input-container">
-          <label>Password *</label>
-          <input
-            type="password"
-            name="memberPassword"
-            class="member-password"
-            placeholder="Password"
-            value=""
-            required
-          />
-        </div>
-      </div>
-      <button class="login-btn btn" name="login" type="submit">Login</button>
-    </div>
-  </form>
-</body>
+  <body>
 
-<%- include('includes/footer') %>
+    <form class="login-container" action="/admin/login" METHOD="POST">
+
+      <!-- LEFT DECORATIVE SIDE -->
+      <div class="login-showcase">
+
+        <div class="showcase-circle"></div>
+        <div class="showcase-circle-small"></div>
+
+        <div class="showcase-content">
+
+          <a href="/admin" class="showcase-brand">
+            <span class="brand-box">F</span>
+            <span>Furni</span>
+          </a>
+
+          <div class="showcase-text">
+            <span class="showcase-small-title">MODERN LIVING</span>
+
+            <h1>
+              Welcome to your
+              <span>perfect space.</span>
+            </h1>
+
+            <p>
+              Manage your furniture collection, products and customers
+              from one beautiful workspace.
+            </p>
+          </div>
+
+        </div>
+
+
+        <!-- FURNITURE DECORATION -->
+        <div class="mini-room">
+
+          <!-- Lamp -->
+          <div class="mini-lamp">
+            <div class="mini-lamp-glow"></div>
+            <div class="mini-lamp-shade"></div>
+            <div class="mini-lamp-pole"></div>
+            <div class="mini-lamp-base"></div>
+          </div>
+
+          <!-- Sofa -->
+          <div class="mini-sofa">
+            <div class="mini-sofa-back"></div>
+            <div class="mini-sofa-seat"></div>
+
+            <div class="mini-sofa-arm arm-left"></div>
+            <div class="mini-sofa-arm arm-right"></div>
+
+            <div class="mini-pillow pillow-one"></div>
+            <div class="mini-pillow pillow-two"></div>
+
+            <div class="mini-sofa-leg leg-left"></div>
+            <div class="mini-sofa-leg leg-right"></div>
+          </div>
+
+          <!-- Table -->
+          <div class="mini-table">
+            <div class="mini-table-top"></div>
+            <div class="mini-table-leg table-leg-left"></div>
+            <div class="mini-table-leg table-leg-right"></div>
+          </div>
+
+          <!-- Plant -->
+          <div class="mini-plant">
+            <span class="mini-leaf mini-leaf-1"></span>
+            <span class="mini-leaf mini-leaf-2"></span>
+            <span class="mini-leaf mini-leaf-3"></span>
+            <span class="mini-leaf mini-leaf-4"></span>
+
+            <div class="mini-pot"></div>
+          </div>
+
+          <div class="mini-floor"></div>
+
+        </div>
+
+      </div>
+
+
+      <!-- RIGHT LOGIN SIDE -->
+      <div class="login-form-side">
+
+        <div class="login-frame">
+
+          <div class="mobile-brand">
+            <span class="brand-box">F</span>
+            <span>Furni</span>
+          </div>
+
+          <div class="login-top">
+
+            <span class="login-small-title">
+              WELCOME BACK
+            </span>
+
+            <h2>Enter</h2>
+
+            <div class="home-link">
+              Go back
+              <a href="/admin">Home</a>
+            </div>
+
+            <p>
+              Not registered yet?
+              <a href="/admin/signup">Signup</a>
+            </p>
+
+          </div>
+
+
+          <div class="login-input-frame">
+
+            <div class="login-input-container">
+
+              <label>Restaurant *</label>
+
+              <div class="input-wrapper">
+
+                <span class="input-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M20 21a8 8 0 0 0-16 0"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                  </svg>
+                </span>
+
+                <input type="text" name="memberNick" class="member-nick" placeholder="Username" value="" required />
+
+              </div>
+
+            </div>
+
+
+            <div class="login-input-container">
+
+              <label>Password *</label>
+
+              <div class="input-wrapper">
+
+                <span class="input-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <rect x="4" y="10" width="16" height="11" rx="2"></rect>
+
+                    <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+                  </svg>
+                </span>
+
+                <input type="password" name="memberPassword" class="member-password" placeholder="Password" value=""
+                  required />
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <button class="login-btn btn" name="login" type="submit">
+            <span>Login</span>
+
+            <span class="button-arrow">→</span>
+          </button>
+
+
+          <div class="login-bottom">
+            <span></span>
+            Secure admin access
+            <span></span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </body>
+
+  <%- include('includes/footer') %>

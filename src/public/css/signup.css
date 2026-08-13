@@ -1,191 +1,1159 @@
+/* ==========================================
+   GLOBAL
+========================================== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+/* ==========================================
+   SIGNUP PAGE
+========================================== */
 .signup-container {
   position: relative;
   width: 100%;
-  height: 100%;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  overflow: hidden;
+  background: #f5f0e9;
+}
+
+/* ==========================================
+   LEFT SHOWCASE
+========================================== */
+.signup-showcase {
+  position: relative;
+  width: 45%;
+  min-height: 100vh;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 72% 24%,
+      rgba(220, 177, 137, 0.34),
+      transparent 35%),
+    linear-gradient(145deg,
+      #eee3d6 0%,
+      #dfc9b3 100%);
+}
+
+.showcase-circle {
+  position: absolute;
+  width: 520px;
+  height: 520px;
+  top: -100px;
+  right: -150px;
+  border-radius: 50%;
+  background:
+    rgba(255, 255, 255, 0.16);
+  border:
+    1px solid rgba(255, 255, 255, 0.3);
+}
+
+.showcase-circle-small {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  left: -70px;
+  bottom: 120px;
+  border-radius: 50%;
+  border:
+    1px solid rgba(107, 77, 55, 0.13);
+}
+
+/* ==========================================
+   SHOWCASE TEXT
+========================================== */
+.showcase-content {
+  position: relative;
+  z-index: 10;
+  padding:
+    50px 60px;
+}
+
+.showcase-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: #302923;
+  text-decoration: none;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.brand-box {
+  width: 42px;
+  height: 42px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-  animation: gradient 15s ease infinite;
-  -webkit-animation: gradient 15s ease infinite;
-  background-size: 200% 200%;
+  border-radius: 13px;
+  background: #302923;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  box-shadow:
+    0 10px 25px rgba(48, 41, 35, 0.16);
+}
+
+.showcase-text {
+  max-width: 510px;
+  margin-top: 105px;
+}
+
+.showcase-small-title {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: #996b49;
+  font-family: Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 4px;
+}
+
+.showcase-text h1 {
+  margin: 0;
+  color: #302923;
+  font-family: Arial, sans-serif;
+  font-size:
+    clamp(42px, 4vw, 67px);
+  line-height: 0.98;
+  letter-spacing: -3px;
+  font-weight: 600;
+}
+
+.showcase-text h1 span {
+  display: block;
+  margin-top: 10px;
+  color: #9f704d;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.showcase-text p {
+  max-width: 430px;
+  margin-top: 28px;
+  color: #756a61;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+/* ==========================================
+   MINI ROOM
+========================================== */
+.mini-room {
+  position: absolute;
+  width: 520px;
+  height: 300px;
+  right: -15px;
+  bottom: -5px;
+  z-index: 4;
+}
+
+.room-arch {
+  position: absolute;
+  width: 260px;
+  height: 250px;
+  right: 90px;
+  bottom: 70px;
+  border-radius:
+    140px 140px 0 0;
+  background:
+    rgba(255, 255, 255, 0.16);
+}
+
+.mini-floor {
+  position: absolute;
+  width: 450px;
+  height: 110px;
+  right: 20px;
+  bottom: -10px;
+  border-radius: 50%;
+  background:
+    rgba(105, 73, 49, 0.12);
+  transform:
+    scaleY(0.3);
+}
+
+/* ==========================================
+   SOFA
+========================================== */
+.mini-sofa {
+  position: absolute;
+  width: 290px;
+  height: 180px;
+  right: 90px;
+  bottom: 33px;
+  z-index: 6;
+  animation:
+    sofaEnter 1.1s ease-out both;
+}
+
+.mini-sofa-back {
+  position: absolute;
+  width: 235px;
+  height: 108px;
+  left: 27px;
+  bottom: 39px;
+  border-radius:
+    42px 42px 18px 18px;
+  background:
+    linear-gradient(145deg,
+      #c58b61,
+      #a96d47);
+  box-shadow:
+    0 20px 35px rgba(83, 50, 29, 0.15);
+}
+
+.mini-sofa-seat {
+  position: absolute;
+  width: 235px;
+  height: 54px;
+  left: 27px;
+  bottom: 27px;
+  border-radius: 20px;
+  background:
+    linear-gradient(#d3a079,
+      #b57a53);
+  z-index: 3;
+}
+
+.mini-sofa-arm {
+  position: absolute;
+  width: 52px;
+  height: 80px;
+  bottom: 27px;
+  border-radius: 20px;
+  background: #a76c46;
+  z-index: 5;
+}
+
+.mini-arm-left {
+  left: 0;
+}
+
+.mini-arm-right {
+  right: 0;
+}
+
+.mini-pillow {
+  position: absolute;
+  width: 58px;
+  height: 54px;
+  bottom: 76px;
+  border-radius: 17px;
+  z-index: 7;
+}
+
+.mini-pillow-one {
+  left: 55px;
+  background: #eadbca;
+  transform:
+    rotate(-8deg);
+  animation:
+    pillowFloat 2.8s ease-in-out infinite alternate;
+}
+
+.mini-pillow-two {
+  right: 55px;
+  background: #65705e;
+  transform:
+    rotate(8deg);
+  animation:
+    pillowFloat 3.2s ease-in-out infinite alternate;
+}
+
+.mini-sofa-leg {
+  position: absolute;
+  width: 9px;
+  height: 23px;
+  bottom: 7px;
+  background: #44362d;
+}
+
+.mini-leg-left {
+  left: 47px;
+}
+
+.mini-leg-right {
+  right: 47px;
+}
+
+/* ==========================================
+   TABLE
+========================================== */
+.mini-table {
+  position: absolute;
+  width: 135px;
+  height: 90px;
+  right: 180px;
+  bottom: 8px;
+  z-index: 10;
+  animation:
+    tableEnter 1.15s .25s ease-out both;
+}
+
+.mini-table-top {
+  position: absolute;
+  width: 135px;
+  height: 35px;
+  border-radius: 50%;
+  background:
+    linear-gradient(#a97855,
+      #875a40);
+  box-shadow:
+    0 10px 20px rgba(57, 35, 21, 0.15);
+}
+
+.mini-table-leg {
+  position: absolute;
+  top: 27px;
+  width: 7px;
+  height: 55px;
+  background: #4b3c32;
+}
+
+.mini-table-leg-left {
+  left: 33px;
+  transform:
+    rotate(8deg);
+}
+
+.mini-table-leg-right {
+  right: 33px;
+  transform:
+    rotate(-8deg);
+}
+
+.mini-vase {
+  position: absolute;
+  width: 25px;
+  height: 31px;
+  left: 55px;
+  top: -13px;
+  border-radius:
+    7px 7px 12px 12px;
+  background: #e6d6c5;
+}
+
+/* ==========================================
+   LAMP
+========================================== */
+.mini-lamp {
+  position: absolute;
+  width: 100px;
+  height: 225px;
+  left: 25px;
+  bottom: 28px;
+  z-index: 2;
+  animation:
+    lampEnter 1.1s .1s ease-out both;
+}
+
+.mini-lamp-glow {
+  position: absolute;
+  width: 145px;
+  height: 145px;
+  left: -22px;
+  top: -15px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle,
+      rgba(255, 221, 159, .65),
+      transparent 70%);
+  filter:
+    blur(10px);
+  animation:
+    lampGlow 2.2s ease-in-out infinite alternate;
+}
+
+.mini-lamp-shade {
+  position: absolute;
+  width: 80px;
+  height: 58px;
+  left: 10px;
+  background: #ead9bf;
+  clip-path:
+    polygon(25% 0,
+      75% 0,
+      100% 100%,
+      0 100%);
+  z-index: 3;
+}
+
+.mini-lamp-pole {
+  position: absolute;
+  width: 4px;
+  height: 145px;
+  left: 48px;
+  top: 50px;
+  background: #50453b;
+}
+
+.mini-lamp-base {
+  position: absolute;
+  width: 70px;
+  height: 14px;
+  left: 15px;
+  bottom: 0;
+  border-radius: 50%;
+  background: #50453b;
+}
+
+/* ==========================================
+   PLANT
+========================================== */
+.mini-plant {
+  position: absolute;
+  width: 115px;
+  height: 170px;
+  right: 0;
+  bottom: 29px;
+  z-index: 3;
+  animation:
+    plantEnter 1.2s .35s ease-out both;
+}
+
+.mini-pot {
+  position: absolute;
+  width: 61px;
+  height: 62px;
+  left: 27px;
+  bottom: 0;
+  border-radius:
+    10px 10px 28px 28px;
+  background:
+    linear-gradient(#ae7554,
+      #82513b);
+  z-index: 3;
+}
+
+.mini-leaf {
+  position: absolute;
+  width: 26px;
+  height: 80px;
+  left: 45px;
+  bottom: 50px;
+  border-radius:
+    100% 0 100% 0;
+  background:
+    linear-gradient(#718069,
+      #3e5140);
+  transform-origin:
+    bottom;
+}
+
+.mini-leaf-1 {
+  transform:
+    rotate(-48deg);
+}
+
+.mini-leaf-2 {
+  transform:
+    rotate(-20deg) translateY(-14px);
+}
+
+.mini-leaf-3 {
+  transform:
+    rotate(18deg) translateY(-20px);
+}
+
+.mini-leaf-4 {
+  transform:
+    rotate(50deg);
+}
+
+/* ==========================================
+   RIGHT SIDE
+========================================== */
+.signup-form-side {
+  position: relative;
+  width: 55%;
+  min-height: 100vh;
+  padding:
+    45px 55px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  background:
+    rgba(250, 248, 245, .96);
+}
+
+.signup-form-side form {
+  width: 100%;
+  max-width: 700px;
+}
+
+/* ==========================================
+   SIGNUP FRAME
+========================================== */
+.signup-frame {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  animation:
+    formEnter .85s ease-out both;
+}
+
+.mobile-brand {
+  display: none;
+}
+
+/* ==========================================
+   TITLE
+========================================== */
+.signup-top {
+  width: 100%;
+}
+
+.signup-small-title {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: #9d704e;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.signup-top h2 {
+  margin:
+    0 0 14px;
+  color: #302923;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+  font-size: 43px;
+  font-weight: 500;
+  line-height: 1;
+}
+
+.signup-top .home-link,
+.signup-top p {
+  color: #81776f;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.signup-top p {
+  margin:
+    7px 0 0;
 }
 
 .signup-container a {
+  color: #9d6c4b;
   text-decoration: none;
-  color: black;
+  font-weight: 600;
+  transition:
+    color .25s ease;
 }
 
-.signup-container .signup-frame {
-  position: relative;
-  width: 420px;
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  border-radius: 10px;
-  background: #ffffff;
-  padding: 25px;
+.signup-container a:hover {
+  color: #513a2a;
 }
 
-.signup-container .signup-frame .sign-input-frame {
+/* ==========================================
+   INPUT ROWS
+========================================== */
+.sign-input-frame {
   position: relative;
   width: 100%;
-  height: auto;
+  margin-top: 24px;
   display: flex;
-  flex-direction: row;
+  gap: 18px;
 }
 
-.signup-container .sign-input-frame .sign-up-frame {
+.sign-up-frame {
   position: relative;
-  margin-top: 15px;
-  width: 49%;
-  height: auto;
+  width: 50%;
   display: flex;
   flex-direction: column;
 }
 
-.signup-container .sign-up-frame label {
-  margin-bottom: 0px;
-  font-family: "Poppins";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 18px;
+.sign-up-frame label {
+  margin-bottom: 9px;
+  color: #504941;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 12px;
+  font-weight: 600;
 }
 
-.signup-container .sign-up-frame input {
+.input-wrapper {
   position: relative;
-  margin-top: 10px;
-  padding-left: 20px;
   width: 100%;
-  height: 55px;
-  background: #f6f5f5;
-  border: 1px solid #dddddd;
-  border-radius: 8px;
 }
 
-.signup-container .media-frame {
-  position: relative;
-  margin-top: 15px;
-  width: 100%;
-  height: 250px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.signup-container .media-frame .upload-img-frame {
-  position: relative;
-  width: 275px;
-  height: 93%;
-  display: flex;
-  border-radius: 15px;
-}
-
-.signup-container .upload-img-frame .delete-img {
+.input-icon {
   position: absolute;
-  width: 37px;
-  height: 37px;
-  right: 5%;
-  top: 5%;
+  left: 16px;
+  top: 50%;
+  width: 19px;
+  height: 19px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #ffffff;
-  box-shadow: 0px 6px 15px rgba(64, 79, 104, 0.05);
-  border-radius: 8px;
+  transform:
+    translateY(-50%);
+  color: #988a7e;
+  z-index: 2;
+  pointer-events: none;
 }
 
-.signup-container .media-frame .upload-container {
+.input-icon svg {
+  width: 19px;
+  height: 19px;
+}
+
+.sign-up-frame input {
+  width: 100%;
+  height: 56px;
+  padding:
+    0 17px 0 49px;
+  border:
+    1px solid #ded6cf;
+  border-radius: 14px;
+  outline: none;
+  background: #ffffff;
+  color: #302923;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 14px;
+  transition:
+    border-color .25s ease,
+    box-shadow .25s ease,
+    transform .25s ease;
+}
+
+.sign-up-frame input::placeholder {
+  color: #b1aaa3;
+}
+
+.sign-up-frame input:hover {
+  border-color: #c4b4a7;
+}
+
+.sign-up-frame input:focus {
+  border-color: #aa7956;
+  box-shadow:
+    0 0 0 4px rgba(170, 121, 86, .09);
+  transform:
+    translateY(-1px);
+}
+
+/* ==========================================
+   IMAGE AREA
+========================================== */
+.signup-input-frame {
+  width: 100%;
+  margin-top: 27px;
+}
+
+.media-frame {
   position: relative;
-  margin-left: 30px;
-  width: 75%;
+  width: 100%;
+  min-height: 190px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 23px;
+  border:
+    1px solid #e3dcd5;
+  border-radius: 19px;
+  background:
+    #ffffff;
+  box-shadow:
+    0 10px 30px rgba(76, 53, 36, .045);
+}
+
+/* image */
+.image-preview-container {
+  position: relative;
+  flex-shrink: 0;
+  width: 180px;
+  height: 160px;
+  overflow: hidden;
+  border-radius: 15px;
+  background: #eee8e1;
+}
+
+.upload-img-frame {
+  width: 100%;
   height: 100%;
+  display: block;
+  object-fit: cover;
+  transition:
+    transform .4s ease;
+}
+
+.image-preview-container:hover .upload-img-frame {
+  transform:
+    scale(1.04);
+}
+
+.preview-overlay {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding:
+    6px 10px;
+  border-radius: 20px;
+  background:
+    rgba(44, 38, 33, .75);
+  backdrop-filter:
+    blur(6px);
+  color: #ffffff;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* upload content */
+.upload-container {
+  position: relative;
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
 }
 
-.signup-container .media-text {
-  font-family: "GT Walsheim Pro";
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 18px;
-  color: #140342;
+.media-text {
+  color: #3d352f;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 700;
 }
 
-.signup-container .file-box input[type="file"] {
+.upload-subtitle {
+  margin:
+    5px 0 15px;
+  color: #9a9189;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 12px;
+}
+
+/* ==========================================
+   FILE BOX
+========================================== */
+.file-box {
+  position: relative;
+  width: 100%;
+  display: flex;
+  margin: 0;
+}
+
+.file-box input[type="file"] {
   position: absolute;
   width: 1px;
   height: 1px;
   padding: 0;
   margin: -1px;
   overflow: hidden;
-  clip: rect(0, 0, 0, 0);
+  clip:
+    rect(0, 0, 0, 0);
   border: 0;
 }
 
-.signup-container .file-box label {
-  margin-bottom: 0px;
-  width: 138px;
-  height: 55px;
+.file-box .upload-name {
+  width: calc(100% - 125px);
+  height: 50px;
+  padding:
+    0 15px;
+  border:
+    1px solid #ded6cf;
+  border-radius:
+    12px 0 0 12px;
+  background:
+    #faf9f7;
+  color: #938980;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 12px;
+}
 
+.file-box label {
+  width: 125px;
+  height: 50px;
+  margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #6a7a99;
-  border-radius: 0px 8px 8px 0px;
-  font-family: "GT Walsheim Pro";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 26px;
+  border-radius:
+    0 12px 12px 0;
+  background: #342d27;
   color: #ffffff;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background .25s ease,
+    transform .25s ease;
 }
 
-.signup-container .file-box .upload-name {
+.file-box label:hover {
+  background:
+    #9d704e;
+}
+
+.thumbnail-desc {
+  margin:
+    13px 0 0;
+  color: #9a9189;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* ==========================================
+   SIGNUP BUTTON
+========================================== */
+.signup-btn {
   position: relative;
-  padding: 20px;
-  width: 85%;
-  height: 55px;
-  display: flex;
-  background: #ffffff;
-  border: 1px solid #dddddd;
-  border-radius: 8px 0px 0px 8px;
-}
-
-.signup-container .thumbnail-desc {
+  width: 100%;
+  height: 59px;
   margin-top: 25px;
-  font-family: "GT Walsheim Pro";
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 26px;
-  color: #4f547b;
+  padding:
+    0 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  overflow: hidden;
+  border: 0;
+  border-radius: 15px;
+  background: #302923;
+  color: #ffffff;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: .3px;
+  cursor: pointer;
+  box-shadow:
+    0 13px 30px rgba(48, 41, 35, .16);
+  transition:
+    transform .3s ease,
+    background .3s ease,
+    box-shadow .3s ease;
 }
 
-/* Background animation */
-@-webkit-keyframes gradient {
-  0% {
-    background-position: 0% 50%;
+.signup-btn::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: -100%;
+  top: 0;
+  background:
+    linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, .12),
+      transparent);
+  transition:
+    left .5s ease;
+}
+
+.signup-btn:hover {
+  background: #9e704e;
+  transform:
+    translateY(-3px);
+  box-shadow:
+    0 17px 32px rgba(133, 91, 61, .23);
+}
+
+.signup-btn:hover::before {
+  left: 100%;
+}
+
+.button-arrow {
+  position: relative;
+  font-size: 20px;
+  transition:
+    transform .3s ease;
+}
+
+.signup-btn:hover .button-arrow {
+  transform:
+    translateX(5px);
+}
+
+/* ==========================================
+   BOTTOM
+========================================== */
+.signup-bottom {
+  width: 100%;
+  margin-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #aaa19a;
+  font-family:
+    Arial,
+    sans-serif;
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.signup-bottom span {
+  width: 35px;
+  height: 1px;
+  background: #ddd5ce;
+}
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+@keyframes formEnter {
+  from {
+    opacity: 0;
+    transform:
+      translateY(25px);
   }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0);
   }
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
+@keyframes sofaEnter {
+  from {
+    opacity: 0;
+    transform:
+      translateY(55px);
   }
-  50% {
-    background-position: 100% 50%;
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0);
   }
-  100% {
-    background-position: 0% 50%;
+}
+
+@keyframes lampEnter {
+  from {
+    opacity: 0;
+    transform:
+      translateX(-35px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(0);
+  }
+}
+
+@keyframes tableEnter {
+  from {
+    opacity: 0;
+    transform:
+      translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0);
+  }
+}
+
+@keyframes plantEnter {
+  from {
+    opacity: 0;
+    transform:
+      translateX(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateX(0);
+  }
+}
+
+@keyframes lampGlow {
+  from {
+    opacity: .4;
+    transform:
+      scale(.92);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      scale(1.08);
+  }
+}
+
+@keyframes pillowFloat {
+  from {
+    margin-bottom: 0;
+  }
+
+  to {
+    margin-bottom: 5px;
+  }
+}
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+@media (max-width: 1150px) {
+  .signup-showcase {
+    width: 40%;
+  }
+
+  .signup-form-side {
+    width: 60%;
+    padding:
+      40px;
+  }
+
+  .showcase-content {
+    padding:
+      45px;
+  }
+
+  .mini-room {
+    transform:
+      scale(.8);
+    transform-origin:
+      right bottom;
+  }
+}
+
+@media (max-width: 850px) {
+  .signup-showcase {
+    display: none;
+  }
+
+  .signup-form-side {
+    width: 100%;
+    padding:
+      40px 25px;
+    background:
+      radial-gradient(circle at 90% 10%,
+        rgba(219, 175, 135, .22),
+        transparent 35%),
+      #f5f0e9;
+  }
+
+  .signup-form-side form {
+    max-width: 650px;
+  }
+
+  .signup-frame {
+    padding:
+      35px 30px;
+    border:
+      1px solid rgba(116, 87, 63, .08);
+    border-radius: 24px;
+    background:
+      rgba(255, 255, 255, .79);
+    box-shadow:
+      0 20px 50px rgba(69, 48, 33, .08);
+  }
+
+  .mobile-brand {
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #302923;
+    font-family:
+      Georgia,
+      "Times New Roman",
+      serif;
+    font-size: 21px;
+    font-weight: 600;
+  }
+
+  .mobile-brand .brand-box {
+    width: 37px;
+    height: 37px;
+    border-radius: 11px;
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .signup-form-side {
+    padding:
+      18px;
+  }
+
+  .signup-frame {
+    padding:
+      30px 20px;
+  }
+
+  .signup-top h2 {
+    font-size: 38px;
+  }
+
+  .sign-input-frame {
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 18px;
+  }
+
+  .sign-up-frame {
+    width: 100%;
+  }
+
+  .media-frame {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .image-preview-container {
+    width: 100%;
+    height: 220px;
+  }
+
+  .file-box .upload-name {
+    width:
+      calc(100% - 115px);
+  }
+
+  .file-box label {
+    width: 115px;
   }
 }

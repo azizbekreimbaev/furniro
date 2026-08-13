@@ -11,7 +11,7 @@ $(function () {
         // Axious updateUser
 
 
-        axios.post("/admin/user/edit", {
+        axios.post("/admin/members/edit", {
             _id: id, memberStatus: memberStatus
         }).then((response) => {
 

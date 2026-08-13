@@ -3,184 +3,813 @@
   <link rel="stylesheet" type="text/css" href="/css/products.css" />
 
   <body>
-    <div class="products-container">
-      <div class="navigation-menu">
-        <ul class="nav justify-content-center">
-          <li class="nav-item" style="cursor: pointer">
-            <a class="nav-link active" href="/admin/">Home</a>
-          </li>
-          <li class="nav-item" style="cursor: pointer">
-            <a class="nav-link" href="/admin/product/getall">Menu</a>
-          </li>
-          <li class="nav-item" style="cursor: pointer">
-            <a class="nav-link" href="/admin/members/all">Users</a>
-          </li>
-          <li class="nav-item" style="cursor: pointer" onclick="return confirm('Do you want to logout?')">
-            <a class="nav-link" href="/admin/logout">Logout</a>
-          </li>
-        </ul>
-      </div>
+    <% const getProductImageSrc=function(image) { if (!image) { return "/img/default.jpeg" ; } const
+      normalizedImage=String(image).replace(/\\/g, "/" ); if ( normalizedImage.startsWith("http://") ||
+      normalizedImage.startsWith("https://") ) { return normalizedImage; } if (normalizedImage.startsWith("/uploads/"))
+      { return normalizedImage; } if (normalizedImage.startsWith("uploads/")) { return "/" + normalizedImage; } if
+      (normalizedImage.startsWith("products/")) { return "/uploads/" + normalizedImage; } return "/uploads/products/" +
+      normalizedImage; }; %>
 
-      <div class="restaurant-menu-frame">
-        <div class="board">
-          <div class="dishes-table">
-            <span class="new-dish-txt" style="margin-bottom: 30px">
-              RESTAURANT MENU
-            </span>
-            <table class="table table-bordered table-hover">
-              <thead class="thead-light">
-                <tr class="thead-light">
-                  <th scope="col">T/r</th>
-                  <th scope="col">Product Name</th>
-                  <th scope="col">Product Type</th>
-                  <th scope="col">Product Volume</th>
-                  <th scope="col">Product Price</th>
-                  <th scope="col">Product Left Count</th>
-                  <th scope="col">Status</th>
-                </tr>
-              </thead>
-              <!--  LOOP PRODUCTS: START  -->
-              <% products.map(function(value, key) { %>
-                <tbody style="background: white">
-                  <td>
-                    <%= key +1 %>
-                  </td>
-                  <td>
-                    <%= value.productName %>
-                  </td>
-                  <td>
-                    <%= value.productCollection %>
-                  </td>
-                  <td>
-                    <%= value.productCollection==='DRINK' ? value.productVolume : value.productSize%>
-                  </td>
-                  <td>
-                    <%= value.productPrice %>
-                  </td>
-                  <td>
-                    <%= value.productLeftCount %>
-                  </td>
-                  <td>
-                    <select class="spec-select new-product-status" id="<%= value._id %>">
-                      <option value="PAUSE" <%=value.productStatus==='PAUSE' ? 'selected' : ' ' %>>PAUSE</option>
-                      <option value="PROCESS" <%=value.productStatus==='PROCESS' ? 'selected' : ' ' %>>PROCESS</option>
-                      <option value="DELETE" <%=value.productStatus==='DELETE' ? 'selected' : ' ' %>>DELETE</option>
-                    </select>
-                  </td>
-                </tbody>
-                <% }) %>
+      <div class="products-container">
 
-            </table>
-            <div class="long-input" style="align-items: flex-end; margin-bottom: 25px">
-              <button class="btn btn-primary" id="process-btn">
-                New Product
-              </button>
-            </div>
+        <!-- =========================================
+         NAVIGATION
+    ========================================== -->
+
+        <div class="navigation-menu">
+
+          <a href="/admin/" class="nav-brand">
+            <span class="brand-icon">F</span>
+            <span class="brand-text">Furni</span>
+          </a>
+
+
+          <ul class="nav justify-content-center">
+
+            <li class="nav-item" style="cursor: pointer">
+              <a class="nav-link" href="/admin/">
+                Home
+              </a>
+            </li>
+
+            <li class="nav-item" style="cursor: pointer">
+              <a class="nav-link active" href="/admin/product/getall">
+                Menu
+              </a>
+            </li>
+
+            <li class="nav-item" style="cursor: pointer">
+              <a class="nav-link" href="/admin/members/all">
+                Users
+              </a>
+            </li>
+
+            <li class="nav-item" style="cursor: pointer" onclick="return confirm('Do you want to logout?')">
+              <a class="nav-link logout-link" href="/admin/logout">
+                Logout
+              </a>
+            </li>
+
+          </ul>
+
+
+          <div class="nav-decoration">
+            <span></span>
+            <span></span>
           </div>
-          <form onsubmit=" return validateForm()" action="/admin/product/create" method="POST" class="dish-container"
-            enctype="multipart/form-data">
-            <div class="long-input" style="display: flex; align-items: center">
-              <span class="new-dish-txt">NEW PRODUCT DETAIL</span>
-            </div>
-            <div class="login-input-frame">
-              <div class="long-input">
-                <label>Product Name</label>
-                <input type="text" placeholder="Name" name="productName" class="product-name" />
-              </div>
-              <input name="productStatus" value="PAUSE" class="product-status" hidden />
-            </div>
-            <div class="half-input-frame">
-              <div class="half-input">
-                <label>Product Price</label>
-                <input type="number" placeholder="Price" name="productPrice" class="product-price" />
-              </div>
-              <div class="half-input">
-                <label>Product Left Counts</label>
-                <input type="number" placeholder="Counts" name="productLeftCount" class="product-left-count" />
-              </div>
-            </div>
-            <div class="half-input-frame">
-              <div class="half-input">
-                <label>Product Type</label>
-                <select class="product-collection" name="productCollection">
-                  <option value="DISH" selected>Dish</option>
-                  <option value="SALAD">Salad</option>
-                  <option value="DESSERT">Dessert</option>
-                  <option value="DRINK">Drink</option>
-                  <option value="OTHER">Other</option>
-                </select>
-              </div>
 
-              <div class="half-input" id="product-collection">
-                <label>Dish Volume</label>
-                <select class="product-size" name="productSize">
-                  <option value="SMALL">Small</option>
-                  <option value="NORMAL" selected>Normal</option>
-                  <option value="LARGE">Large</option>
-                  <option value="SET">Set</option>
-                </select>
-              </div>
-
-              <div class="half-input" id="product-volume" style="display: none">
-                <label>Drink Volume</label>
-                <select class="product-volume" name="productVolume">
-                  <option value="0.5">0,5 liters</option>
-                  <option value="1" selected>1 liters</option>
-                  <option value="1.2">1,2 liters</option>
-                  <option value="1.5">1,5 liters</option>
-                  <option value="2">2 liters</option>
-                </select>
-              </div>
-            </div>
-            <div class="long-input">
-              <label>Product Description</label>
-              <textarea name="productDesc" class="product-desc"></textarea>
-            </div>
-
-            <div class="img-frame">
-              <label>Product Images</label>
-              <div class="media-frame">
-                <div class="upload-img-box">
-                  <img src="/img/upload.svg" class="1" id="image-section-1" />
-                  <input type="file" id="file" name="productImages" class="image-one" required
-                    onchange="previewFileHandler(this, 1)" />
-                </div>
-                <div class="upload-img-box">
-                  <img src="/img/upload.svg" class="2" id="image-section-2" />
-                  <input type="file" id="file" name="productImages" class="image-two"
-                    onchange="previewFileHandler(this, 2)" />
-                </div>
-                <div class="upload-img-box">
-                  <img src="/img/upload.svg" class="3" id="image-section-3" />
-                  <input type="file" id="file" name="productImages" class="image-three"
-                    onchange="previewFileHandler(this, 3)" />
-                </div>
-                <div class="upload-img-box">
-                  <img src="/img/upload.svg" class="4" id="image-section-4" />
-                  <input type="file" id="file" name="productImages" class="image-four"
-                    onchange="previewFileHandler(this, 4)" />
-                </div>
-                <div class="upload-img-box">
-                  <img src="/img/upload.svg" class="5" id="image-section-5" />
-                  <input type="file" id="file" name="productImages" class="image-five"
-                    onchange="previewFileHandler(this, 5)" />
-                </div>
-                <input name="restaurantIid" class="restaurant-id" hidden />
-              </div>
-            </div>
-
-            <div class="operation-buttons">
-              <button class="btn btn-danger" id="cancel-btn">Cancel</button>
-              <button type="submit" class="btn btn-primary" id="create-btn">
-                Create
-              </button>
-            </div>
-          </form>
         </div>
-      </div>
-    </div>
 
-    <script type="text/javascript" src="/js/products.js"></script>
+
+        <!-- =========================================
+         MAIN CONTENT
+    ========================================== -->
+
+        <div class="restaurant-menu-frame">
+
+          <div class="board">
+
+
+            <!-- =====================================
+             PRODUCTS TABLE
+        ====================================== -->
+
+            <div class="dishes-table">
+
+              <div class="section-header">
+
+                <div class="section-title">
+
+                  <span class="section-small-title">
+                    PRODUCT MANAGEMENT
+                  </span>
+
+                  <span class="new-dish-txt">
+                    RESTAURANT MENU
+                  </span>
+
+                  <p>
+                    Manage your products, inventory and product availability.
+                  </p>
+
+                </div>
+
+
+                <button class="btn new-product-btn" id="process-btn">
+                  <span class="plus-icon">+</span>
+                  New Product
+                </button>
+
+              </div>
+
+
+              <div class="table-card">
+
+                <div class="table-scroll">
+
+                  <table class="table product-table">
+
+                    <thead>
+                      <tr>
+                        <th>T/r</th>
+                        <th>Product</th>
+                        <th>Brand</th>
+                        <th>Category</th>
+                        <th>Material</th>
+                        <th>Color</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Views</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+
+
+                    <tbody>
+
+                      <% products.map(function(value, key) { %>
+
+                        <tr>
+
+                          <!-- NUMBER -->
+                          <td>
+                            <span class="table-number">
+                              <%= key + 1 %>
+                            </span>
+                          </td>
+
+
+                          <!-- PRODUCT NAME -->
+                          <td>
+                            <div class="product-name-cell">
+
+                              <span class="product-dot"></span>
+
+                              <strong>
+                                <%= value.productName || 'NO' %>
+                              </strong>
+
+                            </div>
+                          </td>
+
+
+                          <!-- BRAND -->
+                          <td>
+                            <%= value.productBrand || 'NO' %>
+                          </td>
+
+
+                          <!-- CATEGORY -->
+                          <td>
+
+                            <% if(value.productCategory) { %>
+
+                              <span class="type-badge">
+                                <%= value.productCategory %>
+                              </span>
+
+                              <% } else { %>
+
+                                <span class="empty-value">
+                                  NO
+                                </span>
+
+                                <% } %>
+
+                          </td>
+
+
+                          <!-- MATERIAL -->
+                          <td>
+                            <%= value.productMaterial || 'NO' %>
+                          </td>
+
+
+                          <!-- COLOR -->
+                          <td>
+                            <%= value.productColor || 'NO' %>
+                          </td>
+
+
+                          <!-- PRICE -->
+                          <td>
+
+                            <span class="price-value">
+                              <%= value.productPrice ?? 0 %>
+                            </span>
+
+                          </td>
+
+
+                          <!-- STOCK -->
+                          <td>
+
+                            <span class="stock-value">
+                              <%= value.productLeftCount ?? 0 %>
+                            </span>
+
+                          </td>
+
+
+                          <!-- VIEWS -->
+                          <td>
+                            <%= value.productViews ?? 0 %>
+                          </td>
+
+
+                          <!-- DESCRIPTION -->
+                          <td>
+
+                            <div class="description-cell">
+
+                              <% if(value.productDesc) { %>
+
+                                <%= value.productDesc %>
+
+                                  <% } else { %>
+
+                                    <span class="empty-value">
+                                      NO
+                                    </span>
+
+                                    <% } %>
+
+                            </div>
+
+                          </td>
+
+
+
+
+                          <!-- STATUS -->
+                          <td>
+
+                            <select class="spec-select new-product-status" id="<%= value._id %>">
+
+                              <option value="DRAFT" <%=value.productStatus==='DRAFT' ? 'selected' : '' %>
+                                >
+                                DRAFT
+                              </option>
+
+                              <option value="ACTIVE" <%=value.productStatus==='ACTIVE' ? 'selected' : '' %>
+                                >
+                                ACTIVE
+                              </option>
+
+                              <option value="IN_ACTIVE" <%=value.productStatus==='IN_ACTIVE' ? 'selected' : '' %>
+                                >
+                                IN_ACTIVE
+                              </option>
+
+                            </select>
+
+                          </td>
+
+                        </tr>
+
+                        <% }) %>
+
+                    </tbody>
+
+                  </table>
+
+                </div>
+
+              </div>
+
+              <!-- ==========================================
+     PRODUCT IMAGE GALLERY
+========================================== -->
+
+              <div class="product-gallery-section">
+
+                <div class="gallery-section-header">
+
+                  <div>
+                    <span class="section-small-title">
+                      PRODUCT VISUALS
+                    </span>
+
+                    <h3>
+                      Product Gallery
+                    </h3>
+
+                    <p>
+                      Preview uploaded furniture images.
+                    </p>
+                  </div>
+
+                  <span class="gallery-product-count">
+                    <%= products.length %> Products
+                  </span>
+
+                </div>
+
+
+                <div class="product-gallery-grid">
+
+                  <% products.map(function(value) { %>
+
+                    <div class="product-gallery-card">
+
+
+                      <!-- MAIN IMAGE -->
+
+                      <div class="gallery-main-image">
+
+                        <% if(value.productImages && value.productImages.length> 0) { %>
+
+                          <img src="<%= getProductImageSrc(value.productImages[0]) %>"
+                            alt="<%= value.productName || 'Product' %>"
+                            onerror="this.onerror=null; this.src='/img/default.jpeg';" />
+
+                          <% } else { %>
+
+                            <img src="/img/default.jpeg" alt="No product image" />
+
+                            <% } %>
+
+
+
+
+                      </div>
+
+
+                      <!-- PRODUCT INFO -->
+
+                      <div class="gallery-product-info">
+
+                        <div class="gallery-product-top">
+
+                          <div>
+
+                            <span class="gallery-category">
+                              <%= value.productCategory || 'NO CATEGORY' %>
+                            </span>
+
+                            <h4>
+                              <%= value.productName || 'Unnamed Product' %>
+                            </h4>
+
+                          </div>
+
+
+                          <strong class="gallery-price">
+                            <%= value.productPrice ?? 0 %>
+                          </strong>
+
+                        </div>
+
+
+                        <div class="gallery-meta">
+
+                          <span>
+                            <strong>Brand</strong>
+                            <%= value.productBrand || 'NO' %>
+                          </span>
+
+                          <span>
+                            <strong>Material</strong>
+                            <%= value.productMaterial || 'NO' %>
+                          </span>
+
+                          <span>
+                            <strong>Color</strong>
+                            <%= value.productColor || 'NO' %>
+                          </span>
+
+                        </div>
+
+
+                        <!-- SMALL IMAGES -->
+
+                        <% if(value.productImages && value.productImages.length> 1) { %>
+
+                          <div class="gallery-small-images">
+
+                            <% value.productImages.forEach(function(image, imageIndex) { %>
+
+                              <div class="small-image-item">
+
+                                <img src="<%= getProductImageSrc(image) %>"
+                                  alt="<%= value.productName || 'Product' %> image <%= imageIndex + 1 %>"
+                                  onerror="this.onerror=null; this.src='/img/default.jpeg';" />
+
+                              </div>
+
+                              <% }) %>
+
+                          </div>
+
+                          <% } %>
+
+
+                            <!-- DESCRIPTION -->
+
+                            <div class="gallery-description">
+
+                              <%= value.productDesc || 'No description available.' %>
+
+                            </div>
+
+                      </div>
+
+                    </div>
+
+                    <% }) %>
+
+                </div>
+
+              </div>
+
+
+            </div>
+
+
+            <!-- =====================================
+             NEW PRODUCT FORM
+        ====================================== -->
+
+            <form onsubmit="return validateForm()" action="/admin/product/create" method="POST" class="dish-container"
+              enctype="multipart/form-data">
+
+              <!-- FORM HEADER -->
+
+              <div class="form-header">
+
+                <div>
+
+                  <span class="section-small-title">
+                    ADD TO COLLECTION
+                  </span>
+
+                  <span class="new-dish-txt">
+                    NEW PRODUCT DETAIL
+                  </span>
+
+                  <p>
+                    Enter the product information and upload product images.
+                  </p>
+
+                </div>
+
+              </div>
+
+
+              <!-- PRODUCT NAME -->
+
+              <!-- =====================================
+             BASIC PRODUCT INFORMATION
+        ===================================== -->
+
+              <div class="login-input-frame">
+
+                <div class="long-input">
+
+                  <label>
+                    Product Name *
+                  </label>
+
+                  <input type="text" placeholder="Example: Nordic Lounge Chair" name="productName"
+                    class="product-name" />
+
+                </div>
+
+              </div>
+
+
+              <!-- STATUS -->
+
+              <input name="productStatus" value="DRAFT" class="product-status" hidden />
+
+
+              <!-- PRODUCT VIEWS -->
+
+              <input name="productViews" value="0" class="product-views" hidden />
+
+
+              <!-- =====================================
+             PRICE / STOCK
+        ===================================== -->
+
+              <div class="half-input-frame">
+
+                <div class="half-input">
+
+                  <label>
+                    Product Price *
+                  </label>
+
+                  <input type="number" min="0" placeholder="Price" name="productPrice" class="product-price" />
+
+                </div>
+
+
+                <div class="half-input">
+
+                  <label>
+                    Product Left Count *
+                  </label>
+
+                  <input type="number" min="0" placeholder="Stock quantity" name="productLeftCount"
+                    class="product-left-count" />
+
+                </div>
+
+              </div>
+
+
+              <!-- =====================================
+             BRAND / CATEGORY
+        ===================================== -->
+
+              <div class="half-input-frame">
+
+                <div class="half-input">
+
+                  <div class="field-heading">
+                    <span class="field-icon">01</span>
+
+                    <label>
+                      Product Category
+                    </label>
+                  </div>
+
+                  <select name="productCategory" class="product-category furniture-select">
+                    <option value="" selected disabled>
+                      Select furniture category
+                    </option>
+
+                    <option value="TABLE">Table</option>
+                    <option value="SOFA">Sofa</option>
+                    <option value="BED">Bed</option>
+                    <option value="CHAIR">Chair</option>
+                    <option value="DECOR">Decor</option>
+                    <option value="STOOL">Stool</option>
+                    <option value="DESK">Desk</option>
+                    <option value="WARDROBE">Wardrobe</option>
+                    <option value="SHELF">Shelf</option>
+                    <option value="BENCH">Bench</option>
+                    <option value="CABINET">Cabinet</option>
+                  </select>
+
+                </div>
+
+
+                <div class="half-input">
+
+                  <div class="field-heading">
+                    <span class="field-icon">02</span>
+
+                    <label>
+                      Product Material
+                    </label>
+                  </div>
+
+                  <select name="productMaterial" class="product-material furniture-select">
+                    <option value="" selected disabled>
+                      Select material
+                    </option>
+
+                    <option value="WOOD">Wood</option>
+                    <option value="METAL">Metal</option>
+                    <option value="GLASS">Glass</option>
+                    <option value="LEATHER">Leather</option>
+                    <option value="STONE">Stone</option>
+                    <option value="PLASTIC">Plastic</option>
+                    <option value="FABRIC">Fabric</option>
+                    <option value="RATTAN">Rattan</option>
+                  </select>
+
+                </div>
+
+              </div>
+
+
+              <div class="half-input-frame">
+
+                <div class="half-input">
+
+                  <div class="field-heading">
+                    <span class="field-icon">03</span>
+
+                    <label>
+                      Product Color
+                    </label>
+                  </div>
+
+                  <select name="productColor" class="product-color furniture-select">
+                    <option value="" selected disabled>
+                      Select color
+                    </option>
+
+                    <option value="LACK">Lack</option>
+                    <option value="WHITE">White</option>
+                    <option value="GRAY">Gray</option>
+                    <option value="BROWN">Brown</option>
+                    <option value="BEIGE">Beige</option>
+                    <option value="GREEN">Green</option>
+                    <option value="BLUE">Blue</option>
+                    <option value="RED">Red</option>
+                    <option value="YELLOW">Yellow</option>
+                    <option value="ORANGE">Orange</option>
+                    <option value="CREAM">Cream</option>
+                    <option value="IVORY">Ivory</option>
+                    <option value="PINK">Pink</option>
+                    <option value="PURPLE">Purple</option>
+                    <option value="NAVY">Navy</option>
+                    <option value="OLIVE">Olive</option>
+                    <option value="GOLD">Gold</option>
+                    <option value="SILVER">Silver</option>
+                  </select>
+
+                </div>
+
+
+                <div class="half-input">
+
+                  <div class="field-heading">
+                    <span class="field-icon">04</span>
+
+                    <label>
+                      Product Brand
+                    </label>
+                  </div>
+
+                  <input type="text" name="productBrand" class="product-brand"
+                    placeholder="Example: IKEA, Furni, Muuto..." />
+
+                </div>
+
+              </div>
+
+
+              <!-- =====================================
+             DESCRIPTION
+        ===================================== -->
+
+              <div class="long-input">
+
+                <label>
+                  Product Description
+                </label>
+
+                <textarea name="productDesc" class="product-desc"
+                  placeholder="Describe the furniture, dimensions, style, features..."></textarea>
+
+              </div>
+
+
+              <!-- =================================
+               PRODUCT IMAGES
+          ================================== -->
+
+              <div class="img-frame">
+
+                <div class="image-header">
+
+                  <div>
+
+                    <label>
+                      Product Images
+                    </label>
+
+                    <p>
+                      Upload up to five images. JPG, JPEG and PNG are recommended.
+                    </p>
+
+                  </div>
+
+                  <span class="image-count">
+                    MAX 5
+                  </span>
+
+                </div>
+
+
+                <div class="media-frame">
+
+
+                  <!-- IMAGE 1 -->
+
+                  <div class="upload-img-box">
+
+                    <div class="image-order">
+                      01
+                    </div>
+
+                    <img src="/img/upload.svg" class="1" id="image-section-1" />
+
+                    <input type="file" id="file" name="productImages" class="image-one" required
+                      onchange="previewFileHandler(this, 1)" />
+
+                  </div>
+
+
+                  <!-- IMAGE 2 -->
+
+                  <div class="upload-img-box">
+
+                    <div class="image-order">
+                      02
+                    </div>
+
+                    <img src="/img/upload.svg" class="2" id="image-section-2" />
+
+                    <input type="file" id="file" name="productImages" class="image-two"
+                      onchange="previewFileHandler(this, 2)" />
+
+                  </div>
+
+
+                  <!-- IMAGE 3 -->
+
+                  <div class="upload-img-box">
+
+                    <div class="image-order">
+                      03
+                    </div>
+
+                    <img src="/img/upload.svg" class="3" id="image-section-3" />
+
+                    <input type="file" id="file" name="productImages" class="image-three"
+                      onchange="previewFileHandler(this, 3)" />
+
+                  </div>
+
+
+                  <!-- IMAGE 4 -->
+
+                  <div class="upload-img-box">
+
+                    <div class="image-order">
+                      04
+                    </div>
+
+                    <img src="/img/upload.svg" class="4" id="image-section-4" />
+
+                    <input type="file" id="file" name="productImages" class="image-four"
+                      onchange="previewFileHandler(this, 4)" />
+
+                  </div>
+
+
+                  <!-- IMAGE 5 -->
+
+                  <div class="upload-img-box">
+
+                    <div class="image-order">
+                      05
+                    </div>
+
+                    <img src="/img/upload.svg" class="5" id="image-section-5" />
+
+                    <input type="file" id="file" name="productImages" class="image-five"
+                      onchange="previewFileHandler(this, 5)" />
+
+                  </div>
+
+
+                  <input name="restaurantIid" class="restaurant-id" hidden />
+
+                </div>
+
+              </div>
+
+
+              <!-- =================================
+               ACTION BUTTONS
+          ================================== -->
+
+              <div class="operation-buttons">
+
+                <button class="btn cancel-btn" id="cancel-btn">
+                  Cancel
+                </button>
+
+
+                <button type="submit" class="btn create-btn" id="create-btn">
+                  <span>Create Product</span>
+
+                  <span class="button-arrow">
+                    →
+                  </span>
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <script type="text/javascript" src="/js/products.js"></script>
+
   </body>
 
   <%- include('includes/footer') %>

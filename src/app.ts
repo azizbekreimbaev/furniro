@@ -21,6 +21,10 @@ const store = new MongoDBStore({
 
 // KIRISH CODE
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+    "/uploads",
+    express.static(path.join(process.cwd(), "uploads"))
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
