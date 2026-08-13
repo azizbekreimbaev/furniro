@@ -12,7 +12,7 @@ const memberSrvice = new MemberService();
 adminController.goHome = (req: Request, res: Response) => {
     try {
         console.log("goHome")
-        res.send("HOME PAGE")
+        res.render("home")
     } catch (err) {
         console.log("ERROR, goHome", err)
         res.redirect("/admin")
@@ -24,7 +24,7 @@ adminController.getSignup = (req: AdminRequest, res: Response) => {
     try {
         console.log("getSignup")
 
-        res.send("SIGNUP OK SIGNUP PAGE RENDER COMING SOON")
+        res.render("signup")
         // res.render("signup")
     } catch (err) {
         console.log("ERROR, getSignup", err)
@@ -55,7 +55,7 @@ adminController.processSignup = async (req: AdminRequest, res: Response) => {
                 console.log(err)
                 return res.send("Error on saving to db")
             } else {
-                res.send("Created Successfully")
+                res.render("home")
             }
         })
 
@@ -73,7 +73,7 @@ adminController.getLogin = (req: AdminRequest, res: Response) => {
     try {
         console.log("getSignup")
 
-        res.send("Login PAGE RENDER COMING SOON")
+        res.render("login")
         // res.render("login")
     } catch (err) {
         console.log("ERROR, getSignup", err)
@@ -95,7 +95,7 @@ adminController.processLogin = async (req: AdminRequest, res: Response) => {
         // SESSION
         req.session.member = result
         req.session.save(function () {
-            res.send("Logged in Successfully")
+            res.render("home")
         })
 
 
@@ -114,8 +114,7 @@ adminController.logout = async (req: AdminRequest, res: Response) => {
         console.log("logout")
 
         req.session.destroy(function () {
-            res.send("LOGGED out")
-            //res.redirect("/admin")
+            res.redirect("/admin")
         })
 
     } catch (err) {
@@ -154,7 +153,7 @@ adminController.getAllUsers = async (req: AdminRequest, res: Response) => {
     try {
         const data = await memberSrvice.getAllUsers()
 
-        res.send({ data: data })
+        res.render("users", { users: data })
         // res.render("users", { data: data })
 
     } catch (err) {

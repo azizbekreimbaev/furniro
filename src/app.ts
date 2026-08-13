@@ -5,6 +5,7 @@ import routerAdmin from './router-admin'
 import connectMongoDBSession from 'connect-mongodb-session';
 import session from 'express-session'
 import dotenv from 'dotenv'
+import { T } from './libs/types/common';
 dotenv.config()
 
 const app = express()
@@ -34,6 +35,15 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
+app.use(function (req, res, next) {
+    const sessionInstance = req.session as T;
+
+    res.locals.member = sessionInstance.member
+
+    next()
+})
+
 
 // VIEWS
 app.set('views', path.join(__dirname, "views"));
