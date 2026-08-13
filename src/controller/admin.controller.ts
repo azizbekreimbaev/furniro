@@ -1,6 +1,6 @@
 import express, { NextFunction, Request, Response } from 'express'
 import { T } from '../libs/types/common';
-import { AdminRequest, LoginInput, MemberInput } from '../libs/types/member';
+import { AdminRequest, LoginInput, MemberInput, MemberUpdateInput } from '../libs/types/member';
 import MemberService from '../models/Member.service';
 import Errors, { HttpCode, Message } from '../libs/Errors';
 import { MemberType } from '../libs/enums/member.enum';
@@ -146,6 +146,35 @@ adminController.checkAuth = async (req: AdminRequest, res: Response) => {
     } catch (err) {
         console.log(err)
         res.redirect("/admin")
+    }
+}
+
+
+adminController.getAllUsers = async (req: AdminRequest, res: Response) => {
+    try {
+        const data = await memberSrvice.getAllUsers()
+
+        res.send({ data: data })
+        // res.render("users", { data: data })
+
+    } catch (err) {
+        const message = Message.SOMETHING_WENT_WRONG
+        res.send(`<script> alert("${message}"); window.location.replace('/admin'); </script>`);
+    }
+}
+
+adminController.editUser = async (req: AdminRequest, res: Response) => {
+    try {
+
+        const input: MemberUpdateInput = req.body
+
+        const result = await memberSrvice.editUser(input)
+        res.send({ data: result })
+        // res.render("users", { data: result })
+
+    } catch (err) {
+        const message = Message.SOMETHING_WENT_WRONG
+        res.send(`<script> alert("${message}"); window.location.replace('/admin'); </script>`);
     }
 }
 

@@ -1,9 +1,10 @@
 import { escape } from "node:querystring";
 import { MemberStatus, MemberType } from "../libs/enums/member.enum";
 import Errors, { HttpCode, Message } from "../libs/Errors";
-import { LoginInput, Member, MemberInput } from "../libs/types/member";
+import { LoginInput, Member, MemberInput, MemberUpdateInput } from "../libs/types/member";
 import MemberModel from "../schema/Member.model";
 import bcrypt from 'bcrypt'
+import { shapeIntMongooseObjectId } from "../libs/config";
 
 
 class MemberService {
@@ -112,6 +113,37 @@ class MemberService {
         }
     }
 
+
+    public async getAllUsers(): Promise<Member[]> {
+        try {
+            const result = await this.memberModel.find({ memberType: MemberType.USER }).exec()
+            if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND)
+            return result
+        } catch (err) {
+            console.log("Error on getAllUsers service model", err)
+            throw new Errors(HttpCode.BAD_REQUEST, Message.NO_DATA_FOUND)
+        }
+    }
+
+    public async editUser(input: MemberUpdateInput): Promise<Member> {
+        try {
+            const _id = shapeIntMongooseObjectId(input._id)
+
+            const result = await this.memberModel.findByIdAndUpdate(
+                { _id: _id },
+                input,
+                { returnDocument: 'after' }
+            )
+
+            if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED)
+
+            return result
+
+        } catch (err) {
+            console.log("Error on editUser service model", err)
+            throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED)
+        }
+    }
 
 }
 

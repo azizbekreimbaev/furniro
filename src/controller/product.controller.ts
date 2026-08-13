@@ -84,4 +84,7 @@ productController.updateProduct = async (req: AdminRequest, res: Response) => {
 
 
 
+
+
+
 export default productController;

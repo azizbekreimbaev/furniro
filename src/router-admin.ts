@@ -46,4 +46,9 @@ routerAdmin.post("/product/update/:id",
 /**USERS */
 
 
+routerAdmin.get("/members/all", adminController.verifyAdmin, adminController.getAllUsers)
+
+routerAdmin.post("/members/edit", adminController.verifyAdmin, adminController.editUser)
+
+
 export default routerAdmin
