@@ -6,6 +6,9 @@ import connectMongoDBSession from 'connect-mongodb-session';
 import session from 'express-session'
 import dotenv from 'dotenv'
 import { T } from './libs/types/common';
+
+import cookieParser from 'cookie-parser'
+
 dotenv.config()
 
 const app = express()
@@ -30,6 +33,9 @@ app.use(express.json());
 
 
 // SESSION
+
+app.use(cookieParser())
+
 app.use(session({
     secret: String(process.env.SESSION_SECRET),
     cookie: {

@@ -62,6 +62,31 @@ class MemberService {
 
 
 
+    public async getUserDetail(user: Member): Promise<Member> {
+
+        const userId = shapeIntMongooseObjectId(user._id)
+
+        const result = await this.memberModel.findOne({ _id: userId, memberStatus: MemberStatus.ACTIVE }).exec()
+
+        if (!result) throw new Errors(HttpCode.NOT_FOUND, Message.NO_DATA_FOUND)
+        return result
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     /** SSR */
 
     public async processSignup(input: MemberInput): Promise<Member> {
