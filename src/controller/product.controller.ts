@@ -1,9 +1,10 @@
-import { Response } from "express";
+import { Response, Request } from "express";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import { T } from "../libs/types/common";
 import { AdminRequest } from "../libs/types/member";
-import { ProductInput, ProductUpdateInput } from "../libs/types/product";
+import { ProductInput, ProductInquiry, ProductUpdateInput } from "../libs/types/product";
 import ProductService from "../models/Product.service";
+import { ProductCategory, ProductColor, ProductMaterial } from "../libs/enums/product.enum";
 
 
 
@@ -11,7 +12,39 @@ const productController: T = {}
 
 const productService = new ProductService()
 
+/**SPA */
+productController.getProducts = async (req: Request, res: Response) => {
+    try {
 
+        const { page, limit, order, productColor, productMaterial, productCategory, search } = req.query;
+
+        const inquiry: ProductInquiry = {
+            order: String(order),
+            page: Number(page),
+            limit: Number(limit),
+        }
+
+        if (productColor) inquiry.productColor = productColor as ProductColor
+        if (productMaterial) inquiry.productMaterial = productMaterial as ProductMaterial
+        if (productCategory) inquiry.productCategory = productCategory as ProductCategory
+        if (search) inquiry.search = String(search);
+
+        const result = await productService.getProducts(inquiry)
+
+        res.status(HttpCode.OK).json({ result: result })
+
+    } catch (err) {
+        console.log("Error on getAllProducts", err)
+
+        if (err instanceof Errors) res.status(err.code).json(err)
+        else res.status(Errors.standart.code).json(Errors.standart)
+    }
+}
+
+
+
+
+/**SSR */
 productController.getAllProducts = async (req: Request, res: Response) => {
     try {
         console.log("getAllProducts");

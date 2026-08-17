@@ -52,6 +52,8 @@ export interface ProductInquiry {
     order: string,
     page: number,
     limit: number,
-    productCategory?: ProductCategory
+    productCategory?: ProductCategory,
+    productMaterial?: ProductMaterial,
+    productColor?: ProductColor,
     search?: string
 }

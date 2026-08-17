@@ -74,6 +74,27 @@ class MemberService {
     }
 
 
+    public async updateUser(user: Member, input: MemberUpdateInput): Promise<Member> {
+        try {
+
+            const userId = shapeIntMongooseObjectId(user._id)
+
+            const result = await this.memberModel.findOneAndUpdate(
+                { _id: userId },
+                input, { returnDocument: 'after' }
+            ).exec()
+
+            if (!result) throw new Errors(HttpCode.NOT_MODIFIED, Message.UPDATE_FAILED)
+
+            return result
+
+        } catch (err) {
+            throw new Errors(HttpCode.BAD_REQUEST, Message.UPDATE_FAILED)
+
+        }
+    }
+
+
 
 
 
