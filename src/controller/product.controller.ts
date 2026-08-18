@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import Errors, { HttpCode, Message } from "../libs/Errors";
 import { T } from "../libs/types/common";
-import { AdminRequest } from "../libs/types/member";
+import { AdminRequest, Extendedrequest } from "../libs/types/member";
 import { ProductInput, ProductInquiry, ProductUpdateInput } from "../libs/types/product";
 import ProductService from "../models/Product.service";
 import { ProductCategory, ProductColor, ProductMaterial } from "../libs/enums/product.enum";
@@ -40,6 +40,27 @@ productController.getProducts = async (req: Request, res: Response) => {
         else res.status(Errors.standart.code).json(Errors.standart)
     }
 }
+
+
+productController.getProduct = async (req: Extendedrequest, res: Response) => {
+    try {
+        console.log("GET PRODUCT")
+
+        const { id } = req.params
+
+        const userId = req.member?._id ?? null
+
+        const result = await productService.getProduct(userId, id as string)
+
+        res.status(HttpCode.OK).json({ result: result })
+
+    } catch (err) {
+        console.log("Error on getProduct", err)
+        if (err instanceof Errors) res.status(err.code).json(err)
+        else res.status(Errors.standart.code).json(Errors.standart)
+    }
+}
+
 
 
 

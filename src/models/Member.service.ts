@@ -55,7 +55,7 @@ class MemberService {
             return result
 
         } catch (err) {
-            throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG)
+            throw new Errors(HttpCode.BAD_REQUEST, Message.NO_MEMBER_NICK)
 
         }
     }

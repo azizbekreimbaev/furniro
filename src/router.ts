@@ -22,9 +22,11 @@ router.post("/user/update",
     memberController.updateUser)
 
 
-
 /**PRODUCTS */
 router.get("/product/all", productController.getProducts)
+
+router.get("/product/:id", memberController.retrieveAuth, productController.getProduct)
+
 
 
 
