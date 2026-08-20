@@ -1,9 +1,10 @@
-import mongoose, { Schema } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
+import { OrderItem } from "../libs/types/order";
 
 
 
 
-const OrderItemSchema = new Schema({
+const OrderItemSchema = new Schema<OrderItem>({
     itemQuantity: {
         type: Number,
         required: true
@@ -18,6 +19,12 @@ const OrderItemSchema = new Schema({
         type: Schema.Types.ObjectId,
         require: true,
         ref: "Order"
+    },
+
+    productId: {
+        type: Schema.Types.ObjectId,
+        require: true,
+        ref: "Product"
     }
 
 },
@@ -26,4 +33,5 @@ const OrderItemSchema = new Schema({
 
 )
 
-export default mongoose.model("OrderItem", OrderItemSchema)
+export default mongoose.model<OrderItem>("OrderItem", OrderItemSchema)
+

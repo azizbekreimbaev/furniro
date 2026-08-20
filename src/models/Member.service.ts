@@ -95,6 +95,21 @@ class MemberService {
     }
 
 
+    public async addPoint(user: Member, point: number): Promise<Member> {
+        const userId = shapeIntMongooseObjectId(user._id)
+
+        const result = await this.memberModel.findOneAndUpdate(
+            { _id: userId, memberStatus: MemberStatus.ACTIVE, memberType: MemberType.USER },
+            { $inc: { memberPoints: point } },
+            { returnDocument: "after" }
+        )
+
+        if (!result) throw new Errors(HttpCode.BAD_REQUEST, Message.SOMETHING_WENT_WRONG);
+
+        return result
+
+    }
+
 
 
 
