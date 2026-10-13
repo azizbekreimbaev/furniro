@@ -15,7 +15,7 @@ const productService = new ProductService()
 /**SPA */
 productController.getProducts = async (req: Request, res: Response) => {
     try {
-
+        console.log("getProducts")
         const { page, limit, order, productColor, productMaterial, productCategory, search } = req.query;
 
         const inquiry: ProductInquiry = {

@@ -6,7 +6,7 @@ import connectMongoDBSession from 'connect-mongodb-session';
 import session from 'express-session'
 import dotenv from 'dotenv'
 import { T } from './libs/types/common';
-
+import cors from 'cors'
 import cookieParser from 'cookie-parser'
 
 dotenv.config()
@@ -30,7 +30,9 @@ app.use(
 );
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+app.use(cors({
+    origin: true, credentials: true
+}))
 
 // SESSION
 
