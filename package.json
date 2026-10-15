@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node src/server.ts",
     "start:dev": "nodemon --exec ts-node src/server.ts",
-    "start:prod": "cross-env NODE_ENV=production node dist/server.js",
+    "start:prod": "node dist/server.js",
     "build": "tsc && node extra.js"
   },
   "author": "KEVIN",
